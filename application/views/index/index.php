@@ -12,7 +12,7 @@ body {padding-top:50px;}
     margin-top: 60px;
 }
 .box-icon {
-    background-color: #57a544;
+    background-color: #0097CA;
     border-radius: 50%;
     display: table;
     height: 100px;
