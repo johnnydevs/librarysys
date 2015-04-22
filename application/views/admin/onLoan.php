@@ -1,4 +1,7 @@
-<div class="content">
+<div class="container">
+    
+    <div class="row">
+    
     <h1>On Loan</h1>
 
     <!-- echo out the system feedback (error and success messages) -->
@@ -15,12 +18,12 @@
             echo "<tr>";
             echo '<td>'.$book->id.'</td>';
             echo '<td>'.$book->title.'</td>';
-            echo '<td>'.$book->author.'</td>';
-            echo '<td>'.$book->category.'</td>';
             echo '<td>'.$book->isbn.'</td>';
             echo "</tr>";
         }
         ?>
     </table>
+    
+    </div>
 
 </div>

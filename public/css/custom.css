@@ -1,0 +1,40 @@
+/* 
+    Document   : custom
+    Created on : 09-Mar-2015, 12:58:59
+    Author     : jshongo
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* change co.our of labels */
+.label-as-badge {
+    border-radius: 1em;
+}
+
+/* css styling for profile page */
+.circle-text {
+    width:25%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 20px;
+}
+.circle-text:after {
+    content: "";
+    display: block;
+    width: 100%;
+    height:0;
+    padding-bottom: 100%;
+    background: #5BC0DE; 
+    -moz-border-radius: 50%; 
+    -webkit-border-radius: 50%; 
+    border-radius: 50%;
+}
+.circle-text div {
+    float:left;
+    width:100%;
+    padding-top:50%;
+    line-height:1em;
+    margin-top:-0.5em;
+    text-align:center;
+    color:white;
+} 

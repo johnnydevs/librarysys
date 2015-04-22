@@ -1,4 +1,6 @@
-<div class="content">
+<div class="container">
+    
+    <div class="row">
 
     <!-- echo out the system feedback (error and success messages) -->
     <?php $this->renderFeedbackMessages(); ?>
@@ -12,7 +14,7 @@
                 <input type="password" name="user_password" required />
                 <input type="checkbox" name="user_rememberme" class="remember-me-checkbox" />
                 <label class="remember-me-label">Keep me logged in (for 2 weeks)</label>
-                <input type="submit" class="login-submit-button" />
+                <input type="submit" class="btn btn-info" />
         </form>
         <a href="<?php echo URL; ?>login/register">Register</a>
         |
@@ -25,5 +27,7 @@
         <a href="<?php echo $this->facebook_login_url; ?>" class="facebook-login-button">Log in with Facebook</a>
     </div>
     <?php } ?>
+    
+    </div>
 
 </div>

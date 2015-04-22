@@ -1393,5 +1393,35 @@ class LoginModel
         }
         return $fav;
     }
+    
+    public function reserveTotal()
+    {
+        
+        $userid=$_SESSION['user_id'];
+        $query = $this->db->prepare("SELECT * FROM borrow_request WHERE user_id = :user_id AND isExpired = 0");
+        $query->bindParam(':user_id', $userid);
+        $query->execute();
+
+        $fav = array();
+        foreach ($query->fetchAll() as $borrowRequests) {   
+            $brequest[$borrowRequests->borrow_id] = new stdClass();
+            $brequest[$borrowRequests->borrow_id]->book_id = $borrowRequests->book_id;
+        }
+        return $brequest;
+    }
+    
+    public function lastLogin()
+    {
+        $user_id=$_SESSION['user_id'];
+        $query = $this->db->prepare("SELECT * FROM users WHERE user_id = :user_id");
+        $query->bindParam(':user_id', $user_id);
+        $query->execute();
+        
+        foreach ($query->fetchAll() as $row)
+        {
+           return date('l jS \of F Y \a\t h:i A', $row->user_last_login_timestamp);
+        }
+        
+    }
 
 }

@@ -1,4 +1,7 @@
-<div class="content">
+<div class="container">
+    
+    <div class="row">
+    
     <h1>Books</h1>
 
     <!-- echo out the system feedback (error and success messages) -->
@@ -17,16 +20,21 @@
         echo '<td>'.$book->author.'</td>';
         echo '<td>'.$book->category.'</td>';
         echo '<td>'.$book->isbn.'</td>';
-        if($book->available==1){
-        echo '<td><a href="'.URL.'books/itemView?id='.$book->id.'&isbn='.str_replace ('-', '', $book->isbn) .'"><span class="label label-success">available</span></a></td>';
-        }else{
-         echo '<td><span class="label label-default">on loan</span></td>';   
-        }
+        if($book->available==0){
+            echo '<td><a href="'.URL.'books/itemView?id='.$book->id.'&isbn='.str_replace ('-', '', $book->isbn) .'"><span class="label label-default">unavailable</span></a></td>';
+                }elseif($book->available==1){
+                    echo '<td><a href="'.URL.'books/itemView?id='.$book->id.'&isbn='.str_replace ('-', '', $book->isbn) .'"><span class="label label-success">available</span></a></td>';   
+                        }
+                        else{
+                            echo '<td><a href="'.URL.'books/itemView?id='.$book->id.'&isbn='.str_replace ('-', '', $book->isbn) .'"><span class="label label-warning">on loan</span></a></td>';   
+                                }
         echo "</tr>";
 
     }
 
 ?>
 </table>
+    
+    </div>
 
 </div>

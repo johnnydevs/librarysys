@@ -1,12 +1,11 @@
-<div class="content">
+
+<?php $this->renderFeedbackMessages(); ?>
 
 
-    <!-- echo out the system feedback (error and success messages) -->
-    <?php $this->renderFeedbackMessages(); ?>
-
-<h1>AdminArea</h1>
 
 <div class="container">
+    
+    <h1>AdminArea</h1>
             
     <div class="row">
         <div class="col-xs-6 col-md-3">
@@ -28,7 +27,7 @@
                     <h1 class="panel-title text-center"><?php echo count($this->onLoanBooks); ?></h1>
                 </div>
                 <div class="panel-body text-center">                        
-                    <strong><a href="<?php echo URL; ?>admin/onLoan">On Loan</a></strong>
+                    <strong><a data-toggle="tooltip" data-placement="right" title="books currently on loan" href="<?php echo URL; ?>admin/onLoan">On Loan</a></strong>
                 </div>
             </div>
 
@@ -40,7 +39,7 @@
                     <h1 class="panel-title text-center"><?php echo count($this->books); ?></h1>
                 </div>
                 <div class="panel-body text-center">                        
-                    <strong><a href="<?php echo URL; ?>admin/archive">Archived</a></strong>
+                    <strong><a data-toggle="tooltip" data-placement="right" title="books currently archived"<?php echo URL; ?>admin/archive">Archived</a></strong>
                 </div>
             </div>
 
@@ -53,17 +52,12 @@
                     <h1 class="panel-title text-center"><?php echo count($this->availableBooks); ?></h1>
                 </div>
                 <div class="panel-body text-center">                        
-                    <strong><a href="<?php echo URL; ?>admin/availableBooks">Available</a></strong>
+                    <strong><a data-toggle="tooltip" data-placement="right" title="books currently available"<?php echo URL; ?>admin/availableBooks">Available</a></strong>
                 </div>
             </div>
 
          
         </div>
     </div>
-
-</div>
-
-<hr>
-
 
 </div>

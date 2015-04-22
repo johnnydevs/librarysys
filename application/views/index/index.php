@@ -1,7 +1,4 @@
 <style>
-@import url(//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css);
-
-body {padding-top:50px;}
 
 .box {
     border-radius: 3px;
@@ -40,7 +37,7 @@ body {padding-top:50px;}
 }
    
 </style>
-<div class="content">
+<div class="container">
     
     
 <div class="row">
@@ -66,18 +63,15 @@ body {padding-top:50px;}
     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
         <div class="box">
             <div class="box-icon">
-                <span class="fa fa-4x fa-thumbs-o-up"></span>
+                <span class="fa fa-4x fa-calendar"></span>
             </div>
             <div class="info">
-                <h2 class="text-center">Book of the week</h2>
-                <p>
-                 
+                <h2 class="text-center">Book of the week</h2>                
                  <?php 
                     foreach ($this->bookOfWeek as $bookOfWeek) {
-                        echo '<a href="'.URL.'books/itemView?id='.$bookOfWeek->id.'&isbn='.str_replace ('-', '', $bookOfWeek->isbn) .'">'.$bookOfWeek->title.'</a>';                      
+                        echo '<p><a href="'.URL.'books/itemView?id='.$bookOfWeek->id.'&isbn='.str_replace ('-', '', $bookOfWeek->isbn) .'">'.$bookOfWeek->title.'</a></br>';                      
                     }
                  ?>      
-                </p>
             </div>
         </div>
     </div>
@@ -85,13 +79,13 @@ body {padding-top:50px;}
     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
         <div class="box">
             <div class="box-icon">
-                <span class="fa fa-4x fa-random"></span>
+                <span class="fa fa-4x fa-area-chart"></span>
             </div>
             <div class="info">
                 <h2 class="text-center">Popular</h2>
                 <?php 
                     foreach ($this->popularBook as $popularBook) {
-                        echo '<p><a href="'.URL.'books/itemView?id='.$popularBook->id.'&isbn='.str_replace ('-', '', $popularBook->isbn) .'">'.$popularBook->title.'</a>';                      
+                        echo '<p><a href="'.URL.'books/itemView?id='.$popularBook->id.'&isbn='.str_replace ('-', '', $popularBook->isbn) .'">'.$popularBook->title.'</a></br>';                      
                     }
                  ?> 
             </div>

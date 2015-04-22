@@ -1,5 +1,6 @@
-<div class="content">
+<div class="container">
     
+    <div class="row">
     
     <?php   
     $title = $_GET['title'];
@@ -17,4 +18,7 @@
     </a>
     
     <?php }  ?>
+    
+    </div>
+    
 </div>

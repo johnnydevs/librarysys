@@ -33,7 +33,10 @@ HTML;
 };
 ?>
 
-<div class="content">
+<div class="container">
+    
+    <div class="row">
+    
     <h1>Category View</h1>
 
     <!-- echo out the system feedback (error and success messages) -->
@@ -60,5 +63,7 @@ HTML;
         ?> 
         </table>
     </p>
+    
+    </div>
 
 </div>

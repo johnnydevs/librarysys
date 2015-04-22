@@ -29,6 +29,7 @@ class BooksModel
         b.author, 
         b.isbn, 
         b.available,
+        b.onLoan,
         b.bin,
         b.publicationYear,
         case 
@@ -53,6 +54,7 @@ class BooksModel
             $all_books[$book->id]->category = $book->cat_name;
             $all_books[$book->id]->isbn = $book->isbn;
             $all_books[$book->id]->available = $book->available;
+            $all_books[$book->id]->onLoan = $book->onLoan;
         }
         return $all_books;
     }
@@ -80,7 +82,7 @@ class BooksModel
          else c.cat_name 
         end as cat_name 
         FROM book AS b
-        left JOIN category AS c ON b.category = c.id
+        LEFT JOIN category AS c ON b.category = c.id
         WHERE b.id ='" . ($_GET['id']) . "'");
         $sth->execute();
         
@@ -233,9 +235,8 @@ class BooksModel
     
     public function borrowRequest()
     {
-        $id=$_GET['id']; //get isbn from url  
-        
-        $book_id = '14';
+
+        $book_id = $_GET['id']; //GET BOOK ID FROM URL
         $date_request = date("Y-m-d H:i:s");
         $date1 = str_replace('-', '/', $date);
         $date_expire = date("Y-m-d H:i:s",strtotime($date1 . "+1 days"));
@@ -254,7 +255,7 @@ class BooksModel
         $sqlupdate = "UPDATE book SET available = :available WHERE id = :id";
         $queryupdate = $this->db->prepare($sqlupdate);
         $queryupdate->execute(array(':available' => '0',
-                                    ':id' => $id
+                                    ':id' => $book_id
                                     ));
         
         if ($query->rowCount() == 1) {
@@ -330,6 +331,7 @@ class BooksModel
             }  
     }
     
+    
     public function checkFav($bookid,$userid)
     {
     $bookid=$_REQUEST['book_id']; //get this from ajax
@@ -342,10 +344,12 @@ class BooksModel
     $rows_found = $query->fetchColumn();//numRows doesnt work
     
          if(empty($rows_found)) {
-            $sql = "INSERT INTO favourite (book_id, user_id) VALUES (:book_id, :user_id)";
+            $isFav = '1'; 
+            $sql = "INSERT INTO favourite (book_id, user_id, isFav) VALUES (:book_id, :user_id, :isFav)";
             $query = $this->db->prepare($sql);
             $query->bindParam(':user_id', $userid);
             $query->bindParam(':book_id', $bookid);
+            $query->bindParam(':isFav', $isFav);
             $query->execute();
 
             if ($query->rowCount() == 1) {
@@ -365,7 +369,8 @@ class BooksModel
             if ($query->rowCount() > 0) {
                 // successful remove from favs
                 $_SESSION["feedback_negative"][] = FEEDBACK_REMOVED_FROM_FAVS;
-                unset($_SESSION['btnClicked']);
+                //unset($_SESSION['btnClicked']);
+                $_SESSION['btnClicked'] = 'remove';
                 return true;
                 }        
         }
@@ -414,11 +419,44 @@ class BooksModel
     public function favList()
     {
         $sth = $this->db->prepare("SELECT 
-        b.id, b.title, b.author, b.isbn
+        b.id, 
+        b.title, 
+        b.author, 
+        b.isbn
         FROM book AS b
-        LEFT JOIN favourite AS c ON b.id = c.id
-        WHERE user_id =  :user_id 
+        LEFT JOIN favourite AS c ON b.id = c.book_id
+        WHERE user_id = :user_id
         AND isFav = 1
+        LIMIT 0 , 30
+        ");
+        
+        $sth->bindValue(':user_id', $_SESSION['user_id']);
+        $sth->execute();
+        
+        $all_books = array();
+        
+        foreach ($sth->fetchAll() as $book) {
+            
+            $all_books[$book->id] = new stdClass();
+            $all_books[$book->id]->id = $book->id;
+            $all_books[$book->id]->title = $book->title;
+            $all_books[$book->id]->isbn = $book->isbn;
+        }
+        return $all_books;
+        
+    }
+    
+    public function resList()
+    {
+        $sth = $this->db->prepare("SELECT 
+        b.id, 
+        b.title, 
+        b.author, 
+        b.isbn
+        FROM book AS b
+        LEFT JOIN borrow_request AS c ON b.id = c.book_id
+        WHERE user_id = :user_id
+        AND isExpired = 0
         LIMIT 0 , 30
         ");
         
@@ -441,18 +479,38 @@ class BooksModel
     public function deleteFav()
     {
         $book_id = $_REQUEST['book_id'];
+        $isFav = $_REQUEST['isFav'];
         $user_id=$_SESSION['user_id']; //get this from session
         $sqlupdate = "UPDATE favourite SET isFav = :isFav WHERE book_id = :book_id AND user_id = :user_id";
         $queryupdate = $this->db->prepare($sqlupdate);
-        $queryupdate->execute(array(':isFav' => '0',
-                                    ':book_id' => $book_id,
-                                    ':user_id' => $user_id
-                                    ));
+        $queryupdate->bindParam(':book_id', $book_id);
+        $queryupdate->bindParam(':isFav', $isFav);
+        $queryupdate->bindParam(':user_id', $user_id);
+        $queryupdate->execute();
         
         if ($queryupdate->rowCount() == 1) {
-                $_SESSION["feedback_positive"][] = FEEDBACK_ADDED_TO_FAVS;
+                $_SESSION["feedback_positive"][] = FEEDBACK_REMOVED_FROM_FAVS;
             } else {
                 $_SESSION["feedback_negative"][] = FEEDBACK_REMOVED_FROM_FAVS_FAIL;
+            }
+    }
+    
+    public function deleteRes()
+    {
+        $book_id = $_REQUEST['book_id'];
+        $isExpired = '1';
+        $user_id=$_SESSION['user_id']; //get this from session
+        $sqlupdate = "UPDATE borrow_request SET isExpired = :isExpired WHERE book_id = :book_id AND user_id = :user_id";
+        $queryupdate = $this->db->prepare($sqlupdate);
+        $queryupdate->bindParam(':book_id', $book_id);
+        $queryupdate->bindParam(':isExpired', $isExpired);
+        $queryupdate->bindParam(':user_id', $user_id);
+        $queryupdate->execute();
+        
+        if ($queryupdate->rowCount() == 1) {
+                $_SESSION["feedback_positive"][] = FEEDBACK_REMOVED_FROM_RESERVATIONS;
+            } else {
+                $_SESSION["feedback_negative"][] = FEEDBACK_REMOVED_FROM_RESERVATIONS_FAIL;
             }
     }
     
@@ -574,7 +632,7 @@ class BooksModel
         end as cat_name 
         FROM book AS b
         left JOIN category AS c ON b.category = c.id
-        order by views desc limit 3");
+        order by views desc limit 2");
 
         $sth->execute();
         
@@ -592,6 +650,25 @@ class BooksModel
         return $all_books;
         
     }
+    
+    public function isFav()
+        {
+            $book_id = $_GET['id']; // from url
+            $user_id=$_SESSION['user_id'];
+            $sql = "SELECT isFav FROM favourite WHERE book_id = :book_id AND user_id = :user_id AND isFav = 1";
+            $query = $this->db->prepare($sql);
+            $query->bindParam(':book_id', $book_id);
+            $query->bindParam(':user_id', $user_id);
+            $query->execute();
+
+            if ($query->rowCount() == 1) {
+                    $css = 'btn-success';
+                } else {
+                    $css = 'btn-default';
+                }
+                return $css;
+        }
+    
  
 }
 

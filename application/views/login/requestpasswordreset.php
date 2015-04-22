@@ -1,4 +1,7 @@
-<div class="content">
+<div class="container">
+    
+    <div class="row">
+    
     <h1>Request a password reset</h1>
 
     <!-- echo out the system feedback (error and success messages) -->
@@ -10,6 +13,9 @@
             Enter your username and you'll get a mail with instructions:
         </label>
         <input id="password_reset_input_username" class="password_reset_input" type="text" name="user_name" required />
-        <input type="submit"  name="request_password_reset" value="Reset my password" />
+        <input type="submit" class="btn btn-info"  name="request_password_reset" value="Reset my password" />
     </form>
+    
+    </div>
+    
 </div>

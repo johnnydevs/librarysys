@@ -1,16 +1,25 @@
-<div class="content">
+<script>
+function goBack() {
+    window.history.back()
+}
+</script>
+
+<div class="container">
+    
+        <div class="row">
+    
     <h1>Borrow Request</h1>
 
     <!-- echo out the system feedback (error and success messages) -->
     <?php $this->renderFeedbackMessages(); ?>
 
     <p>
-        Please confirm your request. This will be held for 24hours. Expires: 
-            <?php 
-            $date = new DateTime('today');
-            $date->modify('1 weekday');
-            echo $date->format('Y-m-d H-i'); // 2014-01-04
-            ?>
+    Please confirm your request. This will be reserved for you to collect until then end of 
+        <?php 
+        $date = new DateTime('today');
+        $date->modify('1 weekday');
+        echo $date->format('d-M-Y'); // 2014-01-04
+        ?>
     </p>
 
     <p>
@@ -35,18 +44,18 @@
 
         echo "<tr>";
         echo '<tr>';
-        echo '<td>Image</td>';
+        echo '<td></td>';
         echo '<td>'.$book->thumbnail.'</td>';
         echo '</tr>';
 
         echo "<tr>";
         echo '<tr>';
-        echo '<td>Request</td>';
+        echo '<td></td>';
         echo '<td>
             
             <form action="'.URL.'books/borrowRequestAction?id='.$book->id.'" method="post">
             <label></label>
-            <input type="submit" name="borrow_request" value="Request" />
+            <input type="submit" class="btn btn-info" name="borrow_request" value="Request" />
             </form>
             
             </td>';
@@ -57,4 +66,7 @@
     ?>
     </table>
     </p>
+    <a class="btn btn-xs btn-warning" href="#" onclick="goBack();">cancel</a>
+    </div>
+    
 </div>

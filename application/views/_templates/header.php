@@ -3,13 +3,15 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>My Application</title>
+    <title>SureStart Library</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+    <link href="<?php echo URL; ?>public/img/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon" />
     <!-- CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="<?php echo URL; ?>public/css/reset.css" />
+    <link rel="stylesheet" href="<?php echo URL; ?>public/css/custom.css" />
     <link rel="stylesheet" href="<?php echo URL; ?>public/css/style.css" />
     <link rel="stylesheet" href="<?php echo URL; ?>public/css/typeahead.css" />
     
@@ -41,10 +43,11 @@
     
 </head>
 <body>
-
+    <!--
     <div class="debug-helper-box">
         DEBUG HELPER: you are in the view: <?php echo $filename; ?>
     </div>
+    -->
 
     <div class="title-box">
 
@@ -62,131 +65,169 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Library App</a>
+            <a class="navbar-brand" href="<?php echo URL; ?>index/index">Home</a>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 
                 <!-- for not logged in users -->
                 <?php if (Session::get('user_logged_in') == false):?>
-                <li <?php if ($this->checkForActiveControllerAndAction($filename, "login/index")) { echo ' class="active" '; } ?> >
-                    <a href="<?php echo URL; ?>login/index">Login</a>
-                </li>
-                <li <?php if ($this->checkForActiveControllerAndAction($filename, "login/register")) { echo ' class="active" '; } ?> >
-                    <a href="<?php echo URL; ?>login/register">Register</a>
-                </li>
+                    <li <?php if ($this->checkForActiveController($filename, "login")) { echo ' class="active" '; } ?> >
+                        <a href="<?php echo URL; ?>login/index">Login</a>
+                    </li>
+                    <li>
+                        <a href="<?php echo URL; ?>login/register">Register</a>
+                    </li>
                 <?php endif; ?>
+                <!-- end for not logged in users -->
                 
-                <li <?php if ($this->checkForActiveController($filename, "index")) { echo ' class="active" '; } ?> >
-                <a href="<?php echo URL; ?>index/index">Index</a>
-                </li>
-                
-                <li <?php if ($this->checkForActiveController($filename, "help")) { echo ' class="active" '; } ?> class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Help <span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                <li <?php if ($this->checkForActiveController($filename, "help")) { echo ' class="active" '; } ?> >
-                        <a href="<?php echo URL; ?>help/faq">FAQ</a>
-                </li>
-                </ul>
-                </li>
-                
+                <!-- for logged in users -->
                 <?php if (Session::get('user_logged_in') == true):?>
-                <li <?php if ($this->checkForActiveController($filename, "dashboard")) { echo ' class="active" '; } ?> >
-                <a href="<?php echo URL; ?>dashboard/index">Dashboard</a>
-                </li>
-                
-                <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Books <span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                <li <?php if ($this->checkForActiveController($filename, "books")) { echo ' class="active" '; } ?> >
-                        <a href="<?php echo URL; ?>books/index">List</a>
-                </li>    
-                <li <?php if ($this->checkForActiveController($filename, "books")) { echo ' class="active" '; } ?> >
-                        <a href="<?php echo URL; ?>books/search">Search</a>
-                </li>
-                
-                </ul>
-                </li>
+                    
+
+                    <li <?php if ($this->checkForActiveController($filename, "books")) { echo ' class="active" '; } ?> class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Books <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="<?php echo URL; ?>books/index">List</a>
+                                </li>    
+                                <li>
+                                    <a href="<?php echo URL; ?>books/search">Search</a>
+                                </li>
+                            </ul>
+                    </li>
                    
-                <li <?php if ($this->checkForActiveController($filename, "notes")) { echo ' class="active" '; } ?> >
-                <a href="<?php echo URL; ?>note/index">Notes</a>
-                </li>
-                <?php endif; ?> 
+                    <li <?php if ($this->checkForActiveController($filename, "note")) { echo ' class="active" '; } ?> >
+                        <a href="<?php echo URL; ?>note/index">Notes</a>
+                    </li>
+                
+                <?php endif; ?>
               
                 <?php if (Session::get('user_logged_in') == true):?>
-                <li <?php if ($this->checkForActiveController($filename, "login")) { echo ' class="active" '; } ?> class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Account <span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                <li <?php if ($this->checkForActiveController($filename, "login")) { echo ' class="active" '; } ?> >
-                        <a href="<?php echo URL; ?>login/showprofile">Profile</a>
-                </li>
-                <li <?php if ($this->checkForActiveController($filename, "login")) { echo ' class="active" '; } ?> >
-                        <a href="<?php echo URL; ?>login/changeaccounttype">Change Type</a>
-                </li>
-                <li <?php if ($this->checkForActiveController($filename, "login")) { echo ' class="active" '; } ?> >
-                        <a href="<?php echo URL; ?>login/uploadavatar">Upload Avatar</a>
-                </li>
-                <li <?php if ($this->checkForActiveController($filename, "login")) { echo ' class="active" '; } ?> >
-                        <a href="<?php echo URL; ?>login/editusername">Edit Username</a>
-                </li>
-                <li <?php if ($this->checkForActiveController($filename, "login")) { echo ' class="active" '; } ?> >
-                        <a href="<?php echo URL; ?>login/edituseremail">Edit Email</a>
-                </li>
-                <li <?php if ($this->checkForActiveController($filename, "login")) { echo ' class="active" '; } ?> >
+                    <li <?php if ($this->checkForActiveController($filename, "login")) { echo ' class="active" '; } ?> class="dropdown">
+                    <a href="<?php echo URL; ?>login/showprofile" role="button" aria-expanded="false">Account</a>
+
+                    <li <?php if ($this->checkForActiveController($filename, "notes")) { echo ' class="active" '; } ?> >
+                    <a href="<?php echo URL; ?>login/showprofile#myModal" data-toggle="modal" data-target="#myModal">Contact</a>
+                    </li>
+                    </li>
+                    
+                    <li <?php if ($this->checkForActiveController($filename, "note")) { echo ' class="active" '; } ?> >
                         <a href="<?php echo URL; ?>login/logout">Logout</a>
-                </li>
-                </ul>
-                </li>
-                <?php endif; ?> 
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Help <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                    <a href="<?php echo URL; ?>help/faq">FAQ</a>
+                            </li>
+                        </ul>
+                    </li>
+                <?php endif; ?>
                 
                 <!-- for not admin users -->    
                 <?php if (Session::get('user_account_type') == 2):?>
                 <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Admin <span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-unlock"></i> Admin <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                <li <?php if ($this->checkForActiveController($filename, "admin")) { echo ' class="active" '; } ?> >
+                <li>
                         <a href="<?php echo URL; ?>admin/index">Dashboard</a>
                 </li>    
-                <li <?php if ($this->checkForActiveController($filename, "admin")) { echo ' class="active" '; } ?> >
+                <li>
                         <a href="<?php echo URL; ?>admin/addBook">Add Book</a>
                 </li>
-                <li <?php if ($this->checkForActiveController($filename, "admin")) { echo ' class="active" '; } ?> >
+                <li>
                         <a href="<?php echo URL; ?>admin/archive">Archive</a>
                 </li>
-                <li <?php if ($this->checkForActiveController($filename, "admin")) { echo ' class="active" '; } ?> >
+                <li>
                         <a href="<?php echo URL; ?>admin/users">Users</a>
                 </li>
-                <li <?php if ($this->checkForActiveController($filename, "admin")) { echo ' class="active" '; } ?> >
+                <li>
                         <a href="<?php echo URL; ?>admin/searchIsbn">Search Isbn</a>
                 </li>
-                <li <?php if ($this->checkForActiveController($filename, "admin")) { echo ' class="active" '; } ?> >
+                <li>
                         <a href="<?php echo URL; ?>admin/bin">Bin</a>
                 </li>
-                <li <?php if ($this->checkForActiveController($filename, "admin")) { echo ' class="active" '; } ?> >
+                <li>
                         <a href="<?php echo URL; ?>login/logout">Logout</a>
                 </li>
                 
                 </ul>
                 </li>
                 <?php endif; ?>
-              
-              
+
             </ul>
               <?php if (Session::get('user_logged_in') == true):?>
             <ul class="nav navbar-nav navbar-right">
-              <li><a data-toggle="tooltip" data-placement="bottom" title="favourites" id="favourites" href="<?php echo URL; ?>books/favouriteList"><span class="glyphicon glyphicon-star"></span> <span class="badge"></span></a></li>            
-              <?php endif; ?> 
-              <li><?php if (USE_GRAVATAR) { ?>
-                        <img src='<?php echo Session::get('user_gravatar_image_url'); ?>'
-                             style='width:<?php echo AVATAR_SIZE; ?>px; height:<?php echo AVATAR_SIZE; ?>px;' />
-                    <?php } else { ?>
-                        <img src='<?php echo Session::get('user_avatar_file'); ?>'
-                             style='width:<?php echo AVATAR_SIZE; ?>px; height:<?php echo AVATAR_SIZE; ?>px;' />
-                    <?php } ?> </li>
+              <li><a data-toggle="tooltip" data-placement="bottom" title="reserved books" id="reserved" href="<?php echo URL; ?>books/reserveList"><span class="glyphicon glyphicon-bookmark"></span> <span class="badge"></span></a></li>   
+              <li><a data-toggle="tooltip" data-placement="bottom" title="favourite books" id="favourites" href="<?php echo URL; ?>books/favouriteList"><span class="glyphicon glyphicon-star"></span> <span class="badge"></span></a></li>            
               
-              <li><a href="<?php echo URL; ?>login/showprofile">Hello <?php echo Session::get('user_name'); ?> !</a></li>
+              <li><a data-toggle="tooltip" data-placement="bottom" title="view profile" href="<?php echo URL; ?>login/showprofile">Logged in as <?php echo Session::get('user_name'); ?></a></li>
             </ul>
-              
+              <?php endif; ?> 
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
       </nav>
+    
+    <!-- start modal -->
+
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h2 id="myModalLabel">Send us a message!</h3>
+      </div>
+      <div class="modal-body">
+        <form role="form" method="post">
+	<!--  
+		<legend>Contact Form</legend>		-->
+		<div class="form-group">
+	        <label class="control-label">Name</label>
+			<div class="controls">
+			    <div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input type="text" class="form-control" name="name" placeholder="Name">
+				</div>
+			</div>
+		</div>
+		
+		
+		<div class="form-group">
+	        <label class="control-label">Email</label>
+			<div class="controls">
+			    <div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+					<input type="text" class="form-control" id="email" name="email" placeholder="Email">
+				</div>
+			</div>	
+		</div>
+		
+		<div class="form-group ">
+	        <label class="control-label">Message</label>
+			<div class="controls">
+			    <div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+					<textarea name="message" class="form-control " rows="4" cols="78" placeholder="Enter your message here"></textarea>
+
+				</div>
+			</div>
+		</div>
+		
+
+	      <div class="controls" style="margin-left: 40%;">
+		  
+	       <button type="submit" class="btn btn-info" >Send Message</button>
+	        
+	      </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- end modal -->  
+    

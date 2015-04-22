@@ -15,7 +15,7 @@ class AdminModel
         $this->db = $db;
     }
 
-    public function create($title_text, $category, $author, $isbn, $subtitle, $publicationYear, $pageCount, $description)
+    public function create($title_text, $category, $author, $isbn, $subtitle, $publicationYear, $pageCount, $description, $available)
     {
         // clean the input to prevent for example javascript within the notes.
         $title_text = strip_tags($title_text);
@@ -26,9 +26,10 @@ class AdminModel
         $publicationYear = strip_tags($publicationYear);
         $pageCount = strip_tags($pageCount);
         $description = strip_tags($description);
+        $available = '1';
 
-        $sql = "INSERT INTO book (title, category, author, isbn, subtitle, publicationYear, pageCount, description) 
-                VALUES (:title, :category, :author, :isbn, :subtitle, :publicationYear, :pageCount, :description)";
+        $sql = "INSERT INTO book (title, category, author, isbn, subtitle, publicationYear, pageCount, description, available) 
+                VALUES (:title, :category, :author, :isbn, :subtitle, :publicationYear, :pageCount, :description, :available)";
         $query = $this->db->prepare($sql);
         $query->execute(array(  ':title' => $title_text, 
                                 ':category' => $category,
@@ -37,7 +38,8 @@ class AdminModel
                                 ':subtitle' => $subtitle,
                                 ':publicationYear' => $publicationYear,
                                 ':pageCount' => $pageCount,
-                                ':description' => $description
+                                ':description' => $description,
+                                ':available' => $available
                                 ));
 
         $count =  $query->rowCount();
@@ -221,6 +223,55 @@ class AdminModel
         }
         return $all_books;
     }
+    
+    public function contactForm()
+    {
+        // create PHPMailer object (this is easily possible as we auto-load the according class(es) via composer)
+        
+        if (isset($_POST['name'])){
+        
+        $name = $_REQUEST['name'];
+        $email = $_REQUEST['email'];
+        $message = $_REQUEST['message'];
+        
+        $mail = new PHPMailer;
+        
+        // please look into the config/config.php for much more info on how to use this!
+        if (EMAIL_USE_SMTP) {
+            // set PHPMailer to use SMTP
+            $mail->IsSMTP();
+            // useful for debugging, shows full SMTP errors, config this in config/config.php
+            $mail->SMTPDebug = PHPMAILER_DEBUG_MODE;
+            // enable SMTP authentication
+            $mail->SMTPAuth = EMAIL_SMTP_AUTH;
+            // enable encryption, usually SSL/TLS
+            if (defined('EMAIL_SMTP_ENCRYPTION')) {
+                $mail->SMTPSecure = EMAIL_SMTP_ENCRYPTION;
+            }
+            // set SMTP provider's credentials
+            $mail->Host = EMAIL_SMTP_HOST;
+            $mail->Username = EMAIL_SMTP_USERNAME;
+            $mail->Password = EMAIL_SMTP_PASSWORD;
+            $mail->Port = EMAIL_SMTP_PORT;
+        } else {
+            $mail->IsMail();
+        }
 
+        // fill mail with data
+        $mail->From = EMAIL_VERIFICATION_FROM_EMAIL;
+        $mail->FromName = EMAIL_VERIFICATION_FROM_NAME;
+        $mail->AddAddress($email);
+        $mail->Subject = EMAIL_CONTACT_SUBJECT;
+        $mail->Body = 'testing the email - name ' . $name . ' sent from ' . $email . ' saying ' . $message . '  ';
 
+        // final sending and check
+        if($mail->Send()) {
+            $_SESSION["feedback_positive"][] = FEEDBACK_CONTACT_MAIL_SENDING_SUCCESSFUL;
+            return true;
+        } else {
+            $_SESSION["feedback_negative"][] = FEEDBACK_CONTACT_MAIL_SENDING_ERROR . $mail->ErrorInfo;
+            return false;
+        }
+        }
+    }
 }

@@ -101,7 +101,39 @@ Licensed under MIT
 }    
 
 
+.board{
+    width: 75%;
+margin: 60px auto;
+height: 500px;
+background: #fff;
+/*box-shadow: 10px 10px #ccc,-10px 20px #ddd;*/
+}
+.board .nav-tabs {
+    position: relative;
+    /* border-bottom: 0; */
+    /* width: 80%; */
+    margin: 40px auto;
+    margin-bottom: 0;
+    box-sizing: border-box;
 
+}
+
+p.narrow{
+    width: 60%;
+    margin: 10px auto;
+}
+
+.liner{
+    height: 2px;
+    background: #ddd;
+    position: absolute;
+    width: 80%;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top: 50%;
+    z-index: 1;
+}
 
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
     color: #555555;
@@ -119,20 +151,60 @@ span.round-tabs{
     border-radius: 100px;
     background: white;
     z-index: 2;
+    position: absolute;
     left: 0;
     text-align: center;
     font-size: 25px;
-    margin-bottom: 15px;
 }
 
 span.round-tabs.one{
-    color: rgb(34, 194, 34);border: 2px solid rgb(0, 153, 203);
+    color: rgb(34, 194, 34);border: 2px solid rgb(34, 194, 34);
 }
 
 li.active span.round-tabs.one{
     background: #fff !important;
     border: 2px solid #ddd;
     color: rgb(34, 194, 34);
+}
+
+span.round-tabs.two{
+    color: #febe29;border: 2px solid #febe29;
+}
+
+li.active span.round-tabs.two{
+    background: #fff !important;
+    border: 2px solid #ddd;
+    color: #febe29;
+}
+
+span.round-tabs.three{
+    color: #3e5e9a;border: 2px solid #3e5e9a;
+}
+
+li.active span.round-tabs.three{
+    background: #fff !important;
+    border: 2px solid #ddd;
+    color: #3e5e9a;
+}
+
+span.round-tabs.four{
+    color: #f1685e;border: 2px solid #f1685e;
+}
+
+li.active span.round-tabs.four{
+    background: #fff !important;
+    border: 2px solid #ddd;
+    color: #f1685e;
+}
+
+span.round-tabs.five{
+    color: #999;border: 2px solid #999;
+}
+
+li.active span.round-tabs.five{
+    background: #fff !important;
+    border: 2px solid #ddd;
+    color: #999;
 }
 
 .nav-tabs > li.active > a span.round-tabs{
@@ -273,7 +345,7 @@ Licensed under MIT
 							Overview </a>
 						</li>
 						<li>
-							<a href="<?php echo URL; ?>login/accountSettings">
+							<a href="<?php echo URL; ?>login/accountSettings"">
 							<i class="glyphicon glyphicon-user"></i>
 							Account Settings </a>
 						</li>
@@ -285,64 +357,79 @@ Licensed under MIT
 		<div class="col-md-9">
             <div class="profile-content">
                 <div class="row">
-    
-    <!-- echo out the system feedback (error and success messages) -->
-    <?php $this->renderFeedbackMessages(); ?>
-    
-    
-    <div class="col-md-offset-2 col-md-8 col-lg-offset-2 col-lg-8">
-    	 <div>
-            <div class="col-sm-12">
-                <div class="col-xs-12 col-sm-8">
-                    <h1>Profile</h1>
-                    <p><strong>Name: </strong> <a data-toggle="tooltip" data-placement="right" title="edit username" href="<?php URL ?>editusername"> <?php echo Session::get('user_name'); ?> </a> </p>
-                    <p><strong>Email: </strong> <a data-toggle="tooltip" data-placement="right" title="edit email" href="<?php URL ?>edituseremail"> <?php echo Session::get('user_email'); ?> </a> </p>
-                    <p class="text-muted">Last login: <?php echo $this->lastLoginTime; ?> </p>
+                <div class="board">
+                    <!-- <h2>Welcome to IGHALO!<sup>™</sup></h2>-->
+                    <div class="board-inner">
+                    <ul class="nav nav-tabs" id="myTab">
+                     <li class="active">
+                     <a href="#avatar" data-toggle="tab" title="avatar">
+                      <span class="round-tabs one">
+                          <i class="fa fa-image"></i>
+                      </span> 
+                  </a></li>
+                    <li><a href="#username" data-toggle="tab" title="edit username">
+                     <span class="round-tabs three">
+                          <i class="fa fa-edit"></i>
+                     </span> </a>
+                     </li>
 
-                </div>             
-                <div class="col-xs-12 col-sm-4 text-center">              
-                    <div class="btn-group dropdown">
-                      <button type="button" class="btn btn-default"><span class="fa fa-gear"></span> Options </button>
-                      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                        <span class="caret"></span>
-                        <span class="sr-only">Toggle Dropdown</span>
-                      </button>
-                      <ul class="dropdown-menu text-left" role="menu">
-                        <li><a href="#myModal" data-toggle="modal"><span class="fa fa-envelope pull-right"></span> Contact </a></li>
-                        <li class="divider"></li>
-                        <li><a href="#"><span class="fa fa-star pull-right"></span> Favourites  </a></li>
-                        <li><a href="#"><span class="fa fa-bookmark pull-right"></span> Reservations </a></li>
-                      </ul>
-                    </div>           
-                </div>
-            </div>            
-            <div class="col-xs-12 divider text-center" style="padding-top: 40px;">
-                <div class="col-xs-12 col-sm-6 col-md-6 emphasis">
-                    <span class="round-tabs one">
-                        <div>
-                        <h4><a href="<?php echo URL ?>books/favouriteList" alt="favourites" title="favourites"><?php echo count($this->Favcount); ?></a></h4>
-                        </div>    
-                    </span>
-                    <a class="btn btn-default btn-block" data-toggle="tooltip" data-placement="bottom" title="favourites" id="favourites" href="<?php echo URL; ?>books/favouriteList"><span class="fa fa-star"></span> Favourites</a>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6 emphasis">
-                    
-                    <span class="round-tabs one">
-                        <div>
-                        <h4><a href="<?php echo URL ?>books/reserveList" alt="reserved" title="reserved"><?php echo count($this->ReserveCount); ?></a></h4>
-                        </div>    
-                    </span>       
-                    <a class="btn btn-default btn-block" data-toggle="tooltip" data-placement="bottom" title="reserved" id="reserved" href="<?php echo URL; ?>books/reserveList"><span class="fa fa-bookmark"></span> Reserved</a>
-                </div>
-                
-            </div>
-    	 </div>                 
-		</div>
-    
-    
-  
-    
-    </div>
+                     <li><a href="#notes" data-toggle="tab" title="view notes">
+                         <span class="round-tabs five">
+                          <i class="fa fa-list"></i>
+                         </span> </a>
+                     </li>
+                     
+                     </ul></div>
+
+                     <div class="tab-content">
+                      <div class="tab-pane fade in active" id="avatar">
+
+                          <h3 class="head text-center">edit avatar</h3>
+                          <p class="narrow text-center">
+                              Upload your own image.
+                          </p>
+                          
+                          <p class="text-center">
+                    <a href="<?php echo URL; ?>login/uploadavatar" class="btn btn-success btn-outline-rounded green"> click here</a>
+                </p>
+                      </div>
+                      <div class="tab-pane fade" id="username">
+                          <h3 class="head text-center">edit username & email</h3>
+                          <p class="narrow text-center">
+                              Change your account username or email address.
+                          </p>
+                          
+                          <p class="text-center">
+                    <a href="<?php echo URL; ?>login/edituseremail" class="btn btn-success btn-outline-rounded green"> email address</a>
+                    <a href="<?php echo URL; ?>login/editusername" class="btn btn-success btn-outline-rounded green"> username</a>
+                </p>
+                          
+                      </div>
+
+                      <div class="tab-pane fade" id="notes">
+                          <h3 class="head text-center">view notes</h3>
+                          <p class="narrow text-center">
+                              View your saved notes.
+                          </p>
+                          
+                          <p class="text-center">
+                    <a href="<?php echo URL; ?>note/index" class="btn btn-success btn-outline-rounded green"> click here</a>
+                </p>
+                      </div>
+                      <div class="tab-pane fade" id="doner">
+  <div class="text-center">
+    <i class="img-intro icon-checkmark-circle"></i>
+</div>
+<h3 class="head text-center">thanks for staying tuned! <span style="color:#f48260;">♥</span> Bootstrap</h3>
+<p class="narrow text-center">
+  Lorem ipsum dolor sit amet, his ea mollis fabellas principes. Quo mazim facilis tincidunt ut, utinam saperet facilisi an vim.
+</p>
+</div>
+<div class="clearfix"></div>
+</div>
+
+</div>
+</div>
             </div>
 		</div>
 	</div>

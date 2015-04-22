@@ -1,4 +1,7 @@
-<div class="content">
+<div class="container">
+    
+    <div class="row">
+    
     <h1>Change account type</h1>
     <p>
         This page is a basic implementation of the upgrade-process.
@@ -29,4 +32,7 @@
         <input type="submit" name="user_account_downgrade" value="Downgrade my account" />
     </form>
     <?php } ?>
+    
+    </div>
+    
 </div>

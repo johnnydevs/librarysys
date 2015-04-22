@@ -1,4 +1,7 @@
-<div class="content">
+<div class="container">
+    
+    <div class="row">
+    
     <h1>Help</h1>
 
     <!-- echo out the system feedback (error and success messages) -->
@@ -16,4 +19,7 @@
         http://localhost/myapp/ then this section is now on http://localhost/myapp/help/faq !
         Try it out...
     </p>
+    
+    </div>
+    
 </div>

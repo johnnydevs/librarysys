@@ -1,4 +1,7 @@
-<div class="content">
+<div class="container">
+    
+    <div class="row">
+    
     <h1>Edit a note</h1>
 
     <!-- echo out the system feedback (error and success messages) -->
@@ -14,4 +17,7 @@
     <?php } else { ?>
         <p>This note does not exist.</p>
     <?php } ?>
+        
+    </div>
+        
 </div>

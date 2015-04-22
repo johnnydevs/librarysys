@@ -1,13 +1,14 @@
-<div class="content">
-    <h1>A public user profile</h1>
-    <p>This controller/action/view shows all public information about a certain user.</p>
+<div class="container">
+    
+    <div class="row">
+    
+    <h1>Profile details</h1>
 
     <!-- echo out the system feedback (error and success messages) -->
     <?php $this->renderFeedbackMessages(); ?>
 
     <?php if ($this->user) { ?>
         <p>
-            <span style="color: red;">NOTE: be sure NOT to show email addresses of users in a real app. This is just a demo.</span>
             <table class="overview-table">
             <?php
 
@@ -26,5 +27,8 @@
             </table>
         </p>
     <?php } ?>
+        
+    </div>
+    
 </div>
 

@@ -55,8 +55,8 @@ define('FACEBOOK_REGISTER_PATH', 'login/registerWithFacebook');
  * AVATAR_DEFAULT_IMAGE is the default image in public/avatars/
  */
 define('USE_GRAVATAR', false);
-define('AVATAR_SIZE', 44);
-define('AVATAR_JPEG_QUALITY', 85);
+define('AVATAR_SIZE', 128);
+define('AVATAR_JPEG_QUALITY', 100);
 define('AVATAR_DEFAULT_IMAGE', 'default.jpg');
 
 /**
@@ -157,9 +157,9 @@ define("EMAIL_SMTP_HOST", 'smtp.gmail.com');
 // leave this true until your SMTP can be used without login
 define("EMAIL_SMTP_AUTH", true);
 // SMTP provider username
-define("EMAIL_SMTP_USERNAME", 'YOUR_EMAIL');
+define("EMAIL_SMTP_USERNAME", 'johnnyshongo@gmail.com');
 // SMTP provider password
-define("EMAIL_SMTP_PASSWORD", 'YOUR_PASSWORD');
+define("EMAIL_SMTP_PASSWORD", 'blackmamba1');
 // SMTP provider port
 define("EMAIL_SMTP_PORT", 465);
 // SMTP encryption, usually SMTP providers use "tls" or "ssl", for details see the PHPMailer manual
@@ -189,15 +189,17 @@ define("EMAIL_SMTP_ENCRYPTION", 'ssl');
  */
 define("EMAIL_PASSWORD_RESET_URL", URL . "login/verifypasswordreset");
 define("EMAIL_PASSWORD_RESET_FROM_EMAIL", "no-reply@example.com");
-define("EMAIL_PASSWORD_RESET_FROM_NAME", "My Project");
-define("EMAIL_PASSWORD_RESET_SUBJECT", "Password reset for PROJECT XY");
+define("EMAIL_PASSWORD_RESET_FROM_NAME", "SureStart Library");
+define("EMAIL_PASSWORD_RESET_SUBJECT", "Password reset for SureStart Library");
 define("EMAIL_PASSWORD_RESET_CONTENT", "Please click on this link to reset your password: ");
 
 define("EMAIL_VERIFICATION_URL", URL . "login/verify");
 define("EMAIL_VERIFICATION_FROM_EMAIL", "no-reply@example.com");
-define("EMAIL_VERIFICATION_FROM_NAME", "My Project");
-define("EMAIL_VERIFICATION_SUBJECT", "Account activation for PROJECT XY");
+define("EMAIL_VERIFICATION_FROM_NAME", "SureStart Library");
+define("EMAIL_VERIFICATION_SUBJECT", "Account activation for SureStart Library");
 define("EMAIL_VERIFICATION_CONTENT", "Please click on this link to activate your account: ");
+
+define("EMAIL_CONTACT_SUBJECT", "New Contact Submission");
 
 /**
  * Configuration for: Error messages and notices
@@ -234,8 +236,10 @@ define("FEEDBACK_VERIFICATION_MAIL_SENDING_FAILED", "Sorry, we could not send yo
 define("FEEDBACK_ACCOUNT_CREATION_FAILED", "Sorry, your registration failed. Please go back and try again.");
 define("FEEDBACK_VERIFICATION_MAIL_SENDING_ERROR", "Verification mail could not be sent due to: ");
 define("FEEDBACK_VERIFICATION_MAIL_SENDING_SUCCESSFUL", "A verification mail has been sent successfully.");
+define("FEEDBACK_CONTACT_MAIL_SENDING_SUCCESSFUL", "Email has been sent successfully.");
+define("FEEDBACK_CONTACT_MAIL_SENDING_ERROR", "Email could not be sent. Please try later. ");
 define("FEEDBACK_ACCOUNT_ACTIVATION_SUCCESSFUL", "Activation was successful! You can now log in.");
-define("FEEDBACK_ACCOUNT_ACTIVATION_FAILED", "Sorry, no such id/verification code combination here...");
+define("FEEDBACK_ACCOUNT_ACTIVATION_FAILED", "Sorry, no such id/verification code combination here... Have you already verified?");
 define("FEEDBACK_AVATAR_UPLOAD_SUCCESSFUL", "Avatar upload was successful.");
 define("FEEDBACK_AVATAR_UPLOAD_WRONG_TYPE", "Only JPEG and PNG files are supported.");
 define("FEEDBACK_AVATAR_UPLOAD_TOO_SMALL", "Avatar source file's width/height is too small. Needs to be 100x100 pixel minimum.");
@@ -285,4 +289,5 @@ define("FEEDBACK_BOOK_BIN_SUCCESS", "Book successfully sent to bin.");
 define("FEEDBACK_BOOK_BIN_FAIL", "Unable to bin book.");
 define("FEEDBACK_BOOK_SET_BOOKOFWEEK_SUCCESS", "Successfully marked as book of the week.");
 define("FEEDBACK_BOOK_SET_BOOKOFWEEK_FAIL", "Unable to mark as book of the week.");
-
+define("FEEDBACK_REMOVED_FROM_RESERVATIONS", "Successfully removed from reservations.");
+define("FEEDBACK_REMOVED_FROM_RESERVATIONS_FAIL", "Unable to remove from reservations.");

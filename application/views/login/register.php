@@ -1,4 +1,6 @@
-<div class="content">
+<div class="container">
+    
+    <div class="row">
 
     <!-- echo out the system feedback (error and success messages) -->
     <?php $this->renderFeedbackMessages(); ?>
@@ -23,14 +25,7 @@
             </label>
             <input id="login_input_email" class="login_input" type="email" name="user_email" required />
             <label for="login_input_password_new">
-                Password (min. 6 characters!
-                <span class="login-form-password-pattern-reminder">
-                    Please note: using a long sentence as a password is much much safer then something like "!c00lPa$$w0rd").
-                    Have a look on
-                    <a href="http://security.stackexchange.com/questions/6095/xkcd-936-short-complex-password-or-long-dictionary-passphrase">
-                        this interesting security.stackoverflow.com thread
-                    </a>.
-                </span>
+                Password (min. 6 characters)
             </label>
             <input id="login_input_password_new" class="login_input" type="password" name="user_password_new" pattern=".{6,}" required autocomplete="off" />
             <label for="login_input_password_repeat">Repeat password</label>
@@ -44,15 +39,9 @@
             </span>
             <label>
                 Please enter these characters
-                <span style="display: block; font-size: 11px; color: #999;">
-                    Please note: This captcha will be generated when the img tag requests the captcha-generation
-                    (and a real image) from YOURURL/login/showcaptcha. As this is a client-side triggered request, the
-                    $_SESSION["captcha"] dump in the footer will not show the captcha characters. The captcha generation
-                    happens AFTER the rendering of the footer.
-                </span>
             </label>
             <input type="text" name="captcha" required />
-            <input type="submit"  name="register" value="Register" />
+            <input type="submit" class="btn btn-info" name="register" value="Register" />
 
         </form>
     </div>
@@ -63,5 +52,7 @@
             <a href="<?php echo $this->facebook_register_url; ?>" class="facebook-login-button">Register with Facebook</a>
         </div>
     <?php } ?>
+    
+    </div>
 
 </div>

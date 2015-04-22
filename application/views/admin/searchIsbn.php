@@ -1,4 +1,7 @@
-<div class="content">
+<div class="container">
+    
+    <div class="row">
+    
     <h1>Search ISBN</h1>
 
     <!-- echo out the system feedback (error and success messages) -->
@@ -12,6 +15,9 @@
     </form>
 
     <div id="result"></div>
+    
+    </div>
+    
 </div>
 
 <script>

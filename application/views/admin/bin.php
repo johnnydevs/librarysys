@@ -1,4 +1,7 @@
-<div class="content">
+<div class="container">
+    
+    <div class="row">
+    
     <h1>Archive</h1>
 
     <!-- echo out the system feedback (error and success messages) -->
@@ -22,5 +25,7 @@
         }
         ?>
     </table>
+    
+    </div>
 
 </div>

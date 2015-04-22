@@ -1,17 +1,15 @@
-<div class="content">
+<div class="container">
+    
+    <div class="row">
+    
     <h1>Users</h1>
 
     <!-- echo out the system feedback (error and success messages) -->
     <?php $this->renderFeedbackMessages(); ?>
 
-    <p>
-        This controller/action/view shows a list of all users in the system.
-        You could use the underlaying code to build things that use profile information
-        of one or multiple/all users.
-    </p>
+    <p>All registered users.</p>
 
     <p>
-        <span style="color: red;">NOTE: be sure NOT to show email addresses of users in a real app.</span>
         <table class="table table-hover">
         <?php
 
@@ -41,4 +39,7 @@
         ?>
         </table>
     </p>
+    
+    </div>
+    
 </div>

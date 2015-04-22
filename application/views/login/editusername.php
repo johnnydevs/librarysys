@@ -1,4 +1,7 @@
-<div class="content">
+<div class="container">
+    
+    <div class="row">
+    
     <h1>Change your username</h1>
 
     <!-- echo out the system feedback (error and success messages) -->
@@ -7,6 +10,9 @@
     <form action="<?php echo URL; ?>login/editusername_action" method="post">
         <label>New username</label>
         <input type="text" name="user_name" required />
-        <input type="submit" value="Submit" />
+        <input type="submit" class="btn btn-info" value="Submit" />
     </form>
+    
+    </div>
+    
 </div>

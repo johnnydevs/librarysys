@@ -31,9 +31,11 @@ class Books extends Controller
     function itemView()
     {
         $itemView_model = $this->loadModel('Books');
+        $itemView_model->isFav();
+        $this->view->css = $itemView_model->isFav();
         $this->view->books = $itemView_model->itemView();
         $this->view->similarBooks = $itemView_model->randomBooks();
-        $this->view->render('books/itemView'); 
+        $this->view->render('books/itemView');  
     }
     
     function categoryView()
@@ -100,10 +102,23 @@ class Books extends Controller
     
     function deleteFav()
     {
-        //$favList = $this->loadModel('Books'); //loads books model page
-        $favList->deleteFav();
+        $removeFav = $this->loadModel('Books');
         $this->view->render('books/favouriteList'); 
-        $this->view->books = $favList->deleteFav();
+        $removeFav->deleteFav();
+    }
+    
+    function reserveList()
+    {
+        $resList = $this->loadModel('Books'); //loads books model page
+        $this->view->books = $resList->resList();
+        $this->view->render('books/reserveList'); //rebder the view (show page content)
+    }
+    
+    function deleteRes()
+    {
+        $removeFav = $this->loadModel('Books');
+        $this->view->render('books/reserveList'); 
+        $removeFav->deleteRes();
     }
     
     function search()

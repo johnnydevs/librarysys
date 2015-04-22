@@ -1,10 +1,11 @@
 <?php
 
-$css = "btn-default";
+//$css = "btn-default";
 
-if(isset($_SESSION['btnClicked']) && $_SESSION['btnClicked'] == "success") { $css = "btn-success"; }
+//if(isset($_SESSION['btnClicked']) && $_SESSION['btnClicked'] == 'success') { $css = "btn-success"; }
 
-if(isset($_SESSION['btnClicked']) && $_SESSION['btnClicked'] == "success") { $css = "btn-success"; }
+//if(isset($_SESSION['btnClicked']) && $_SESSION['btnClicked'] == 'remove') { $css = "btn-default"; }
+
 
 function getDropMenuForAvailable(){
 return <<<HTML
@@ -15,6 +16,20 @@ return <<<HTML
   </button>
   <ul class="dropdown-menu" role="menu">
     <li><a href="/books/borrowRequest?id=3118">Borrow Request</a></li>
+  </ul>
+</div>
+HTML;
+};
+
+function getDropMenuForOnLoan(){
+return <<<HTML
+<!-- Single button -->
+<div class="btn-group">
+  <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+    On Loan <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <li><a href="/books/borrowRequest?id=3118">Availability Alert</a></li>
   </ul>
 </div>
 HTML;
@@ -42,6 +57,11 @@ margin-bottom: 20px; /*space at bottom of admin btn group*/
 }    
 </style>
 <script>
+    
+function goBack() {
+    window.history.back()
+}
+    
 $(document).ready(function(){
     $( "#fav" ).click(function(){    
     book_id = $(fav).val(); 
@@ -53,14 +73,12 @@ $(document).ready(function(){
              },
          success: function () { 
              window.location.reload(true);
-             //$("#fav").addClass( "btn-success" );
             }//end success        
         });//end ajax   
     });
     
        //testing
     $( "#mark_as_available" ).click(function(){    
-    //book_id = $(fav).val(); 
     var id = <?php echo $_GET['id']; ?>;
     //title = 'testTitle';
     $.ajax({
@@ -76,7 +94,6 @@ $(document).ready(function(){
     });
     
     $( "#mark_as_unavailable" ).click(function(){    
-    //book_id = $(fav).val(); 
     var id = <?php echo $_GET['id']; ?>;
     //title = 'testTitle';
     $.ajax({
@@ -163,30 +180,6 @@ $(document).ready(function(){
 
 <div class="container">
 
-    
-<div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="deleteLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="deleteLabel">Deleting a Notification</h4>
-            </div>
-            <div class="modal-body">
-                <p>You have selected to delete this notification.</p>
-                <p>
-                    If this was the action that you wanted to do,
-                    please confirm your choice, or cancel and return
-                    to the page.
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger" id="deleteConfirm">Delete Notification</button>
-            </div>
-        </div>
-    </div>
-</div>    
-    
-    
 <div class="row">
 
     <!-- Blog Entries Column -->
@@ -202,7 +195,6 @@ $(document).ready(function(){
     <p>
     <table class="table table-hover">
     <?php
-
     foreach ($this->books as $book) {
         
         echo "<tr>";
@@ -262,12 +254,17 @@ $(document).ready(function(){
         echo "<tr>";
         echo '<tr>';
         echo '<td>Availability</td>';
-            if($book->available==1)  {
-            echo '<td><button class="btn btn-success
-                <a href="'.URL.'books/borrowRequest?id='.$book->id.'&isbn='.str_replace ('-', '', $book->isbn) .'">Borrow Request</a></button>
-            </td>';
-            }else{
-            echo '<td>'.getDropMenuForUnavailable().'</td>'; 
+            
+            if($book->available==0)  {
+            echo '<td>'.getDropMenuForUnavailable().'</td>';     
+            }
+        
+            elseif($book->available==1)  {
+            echo '<td>
+                <a class="btn btn-success" href="'.URL.'books/borrowRequest?id='.$book->id.'&isbn='.str_replace ('-', '', $book->isbn) .'">Borrow Request
+            </td></a>';
+            }elseif($book->available==2)  {
+            echo '<td>'.getDropMenuForOnLoan().'</td>'; 
             }
         echo '</tr>'; 
         echo "</tr>";
@@ -276,7 +273,7 @@ $(document).ready(function(){
         echo '<tr>';
         echo '<td>Options</td>';
         echo '<td>
-              <button id="fav" value="'.$book->id.'" type="button" class="btn '.$css.'"><span class="glyphicon glyphicon-star"></span></button>
+              <button id="fav" value="'.$book->id.'" type="button" class="btn '.$this->css.'"><span class="glyphicon glyphicon-star"></span></button>
               </td></a>';
         echo '</tr>';
 
@@ -290,14 +287,37 @@ $(document).ready(function(){
     ?>
         </table>
     
-      <?php if (Session::get('user_account_type') == 2):?> 
+        <div class="btn-group" role="froup">   
+        <a class="btn btn-xs btn-warning" href="#" onclick="goBack();">back</a>   
+        </div>    
+    
+        <hr>
+        
+        
+      <?php if (Session::get('user_account_type') == 2):?> <!-- for admin only -->
+
+      <button class="btn btn-default" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+      <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+      Admin
+    </button>
+    <div class="collapse" id="collapseExample">
+      <div class="panel panel-default">
       <div class="btn-group" role="group">
+      <div class="panel-body">    
 
-      <?php if($book->available==0):?>
-      <button id="mark_as_available" type="button" class="btn btn-default"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Mark Available</button>
+      <!--
+      0 - unavailable
+      1 - available
+      2 - on loan
+      -->
+       
+      <?php if($book->available==1):?>
+      <button id="mark_as_available" type="button" class="btn btn-default"><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> Loan</button>
 
-      <?php elseif($book->available==1):?>
-      <button id="mark_as_unavailable" type="button" class="btn btn-default"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> Mark Unavailable</button>
+      <?php elseif($book->available==2):?>
+      <button id="mark_as_unavailable" type="button" class="btn btn-default"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> On Loan</button>
+      
+          
       <?php endif; ?> <!-- end if book available -->
 
       <?php if($book->archive=='0'):?>
@@ -313,8 +333,13 @@ $(document).ready(function(){
       <?php endif; ?> 
 
       <button id="delete_book" type="button" class="btn btn-warning"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete</button>
-
+      </div>
+      </div>
     </div>
+        
+        
+
+        </div>
     <?php endif; ?> <!-- end main if -->
 
 </div>

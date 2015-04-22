@@ -45,7 +45,7 @@ class Login extends Controller
         // check login status
         if ($login_successful) {
             // if YES, then move user to dashboard/index (btw this is a browser-redirection, not a rendered view!)
-            header('location: ' . URL . 'dashboard/index');
+            header('location: ' . URL . 'login/showprofile');
         } else {
             // if NO, then move user to login/index (login form) again
             header('location: ' . URL . 'login/index');
@@ -111,9 +111,25 @@ class Login extends Controller
         Auth::handleLogin();
         $login_model = $this->loadModel('Login');
         $books_model = $this->loadModel('Admin');
+        $favs_model = $this->loadModel('Books');
         $this->view->onLoanBooks = $books_model->onLoan();
-        $this->view->Favcount = $login_model->favouriteTotal();
+        $this->view->Favcount = $favs_model->favList(); //load the favList function from the books model page
+        $this->view->lastLoginTime = $login_model->lastLogin();
+        $this->view->ReserveCount = $login_model->reserveTotal();
         $this->view->render('login/showprofile');
+        $books_model->contactForm();
+        if (isset($_POST['name']) AND !empty($_POST['name'])) {
+            echo "xxxxxxxxx"; // this outputs when form is sent
+        }
+        
+    }
+    
+    function accountSettings()
+    {
+        // Auth::handleLogin() makes sure that only logged in users can use this action/method and see that page
+        Auth::handleLogin();
+        $settings_model = $this->loadModel('Login');
+        $this->view->render('login/accountSettings');
     }
     
         function header()

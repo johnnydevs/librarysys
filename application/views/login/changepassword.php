@@ -1,4 +1,7 @@
-<div class="content">
+<div class="container">
+    
+    <div class="row">
+    
     <h1>Set new password</h1>
 
     <!-- echo out the system feedback (error and success messages) -->
@@ -26,4 +29,7 @@
     </form>
 
     <a href="<?php echo URL; ?>login/index">Back to Login Page</a>
+    
+    </div>
+    
 </div>
