@@ -157,9 +157,9 @@ define("EMAIL_SMTP_HOST", 'smtp.gmail.com');
 // leave this true until your SMTP can be used without login
 define("EMAIL_SMTP_AUTH", true);
 // SMTP provider username
-define("EMAIL_SMTP_USERNAME", 'johnnyshongo@gmail.com');
+define("EMAIL_SMTP_USERNAME", '');
 // SMTP provider password
-define("EMAIL_SMTP_PASSWORD", 'blackmamba1');
+define("EMAIL_SMTP_PASSWORD", '');
 // SMTP provider port
 define("EMAIL_SMTP_PORT", 465);
 // SMTP encryption, usually SMTP providers use "tls" or "ssl", for details see the PHPMailer manual
