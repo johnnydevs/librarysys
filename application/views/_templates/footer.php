@@ -1,10 +1,35 @@
-<div class="footer">
-    <a href="https://www.facebook.com/bootsnipp"><i id="social" class="fa fa-facebook-square fa-3x social-fb"></i></a>
-    <a href="https://twitter.com/bootsnipp"><i id="social" class="fa fa-twitter-square fa-3x social-tw"></i></a>
-    <a href="https://plus.google.com/+Bootsnipp-page"><i id="social" class="fa fa-google-plus-square fa-3x social-gp"></i></a>
-    <a href="mailto:bootsnipp@gmail.com"><i id="social" class="fa fa-envelope-square fa-3x social-em"></i></a>
-    <!--<?php d($_SESSION); ?>-->
-</div>
+<!-- See CSS file for link to Font Awsome CSS 
+
+Reference:
+http://lipis.github.io/bootstrap-social
+http://fortawesome.github.io/Font-Awesome/icons/
+
+-->
+
+<div class="container">
+    <div class="row">
+
+    <hr>
+
+        <div class="text-center">
+        <hr>
+            <!-- just add href= for your links, like this: -->
+            <a href="http://www.facebook.com/LittleHandsSureStart" target="_blank" class="btn btn-social-icon btn-facebook"><i class="fa fa-2x fa-facebook"></i></a>    
+            <a href="http://www.twitter.com/lhss" target="_blank" class="btn btn-social-icon btn-twitter"><i class="fa fa-2x fa-twitter"></i></a>
+            <a href="http://www.youtube.com/LHSureStart" target="_blank" class="btn btn-social-icon btn-youtube"><i class="fa fa-2x fa-youtube"></i></a>
+            <a href="http://www.littlehandssurestart.co.uk" target="_blank" class="btn btn-social-icon btn-desktop"><i class="fa fa-2x fa-desktop"></i></a>
+
+        </div>
+    
+        <div class="text-center">
+            <a href="http://www.johnnyshongo.com" target="_blank" class="btn btn-social-icon btn-desktop"><i class="fa fa-copyright"></i> JShongoDesign</a>
+        </div>
+
+
+    </div> <!-- /.row -->
+</div> <!-- /.container -->
+
+
 
 </body>
 </html>

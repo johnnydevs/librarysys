@@ -586,6 +586,7 @@ class BooksModel
         b.id, 
         b.title,
         b.category, 
+        b.description,
         b.author, 
         b.isbn, 
         b.publicationYear,
@@ -595,23 +596,28 @@ class BooksModel
         end as cat_name 
         FROM book AS b
         left JOIN category AS c ON b.category = c.id
-        WHERE bookOfWeek = '1'");
+        WHERE bookOfWeek = '1' LIMIT 1");
 
         $sth->execute();
         
-        //$result = $sth->fetchAll(PDO::FETCH_ASSOC);
-        //return count($result);
-        
         $all_books = array();
-        
+
         foreach ($sth->fetchAll() as $bookOfWeek) {
             
+            //$isbn = $bookOfWeek->isbn; //get isbn from url  
+            //$str = file_get_contents("https://www.googleapis.com/books/v1/volumes?q=isbn:$isbn"); 
+            //$data = json_decode($str, true);//$str is your json string   // 
+
             $all_books[$bookOfWeek->id] = new stdClass();
             $all_books[$bookOfWeek->id]->id = $bookOfWeek->id;
             $all_books[$bookOfWeek->id]->title = $bookOfWeek->title;
-            $all_books[$bookOfWeek->id]->author = $bookOfWeek->author;
-            $all_books[$bookOfWeek->id]->category = $bookOfWeek->cat_name;
             $all_books[$bookOfWeek->id]->isbn = $bookOfWeek->isbn;
+
+            if(isset($data['items'][0]['volumeInfo']['description']) && $data['items'][0]['volumeInfo']['description']!='')  { 
+            $all_books[$bookOfWeek->id]->description = $data['items'][0]['volumeInfo']['description'] ?: 'not available';
+            }else{
+                $all_books[$bookOfWeek->id]->description = $bookOfWeek->description ?: 'description not available';
+            }
         }
         return $all_books;
         
@@ -632,7 +638,7 @@ class BooksModel
         end as cat_name 
         FROM book AS b
         left JOIN category AS c ON b.category = c.id
-        order by views desc limit 2");
+        order by views desc LIMIT 3");
 
         $sth->execute();
         

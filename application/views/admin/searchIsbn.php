@@ -8,11 +8,12 @@
     <?php $this->renderFeedbackMessages(); ?>  
     <div id="result2"></div>
     <form id="form" method="post" action="">
-        <label>Title: </label>
-        <input type="text" id="isbn_search" name="isbn_search" placeholder="enter an isbn here" />
+        <input type="text" class="typeahead tt-input" id="isbn_search" name="isbn_search" placeholder="enter an isbn here" />
         
-        <input type="submit" value='Search Google Books' />
+        <input type="submit" class="btn btn-info" value='Search Google Books' />
     </form>
+    
+    <hr>
 
     <div id="result"></div>
     
@@ -21,7 +22,9 @@
 </div>
 
 <script>
-    
+    function myFunction() {
+    location.reload();
+    }
     var addID = 1;//add button start at 1
     $( '#form' ).submit(function() {
         var isbn = $('#isbn_search').val(); //get isbn direct from input, no need for php
@@ -40,7 +43,8 @@
                 html += '<p>Description: ' + ( entry.volumeInfo.description || 'not available' )+ '</p>';
                 html += '<p>Category: ' + ( entry.volumeInfo.categories || 'not available' )+ '</p>';
                 html += '<p>Author: ' + ( entry.volumeInfo.authors || 'not available' )+ '</p>';   
-                html += '<hr><input type="button" id="add'+addID+'" value="Add book to library" name="add"/></div>';
+                html += '<hr><input class="btn btn-success" type="button" id="add'+addID+'" value="Add book to library" name="add"/> | ';
+                html += '<input class="btn btn-default" type="cancel" value="Search again" onclick="myFunction()" name="cancel"/></div>';
                 $(html).hide().appendTo('#result').fadeIn(1000);
                 
                 $('#add'+addID).click(function(ev) {

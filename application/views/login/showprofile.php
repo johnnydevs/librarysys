@@ -293,14 +293,8 @@ Licensed under MIT
     <div class="col-md-offset-2 col-md-8 col-lg-offset-2 col-lg-8">
     	 <div>
             <div class="col-sm-12">
-                <div class="col-xs-12 col-sm-8">
-                    <h1>Profile</h1>
-                    <p><strong>Name: </strong> <a data-toggle="tooltip" data-placement="right" title="edit username" href="<?php URL ?>editusername"> <?php echo Session::get('user_name'); ?> </a> </p>
-                    <p><strong>Email: </strong> <a data-toggle="tooltip" data-placement="right" title="edit email" href="<?php URL ?>edituseremail"> <?php echo Session::get('user_email'); ?> </a> </p>
-                    <p class="text-muted">Last login: <?php echo $this->lastLoginTime; ?> </p>
-
-                </div>             
-                <div class="col-xs-12 col-sm-4 text-center">              
+                
+                <div class="col-xs-12 col-sm-4 pull-right">              
                     <div class="btn-group dropdown">
                       <button type="button" class="btn btn-default"><span class="fa fa-gear"></span> Options </button>
                       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -310,11 +304,20 @@ Licensed under MIT
                       <ul class="dropdown-menu text-left" role="menu">
                         <li><a href="#myModal" data-toggle="modal"><span class="fa fa-envelope pull-right"></span> Contact </a></li>
                         <li class="divider"></li>
-                        <li><a href="#"><span class="fa fa-star pull-right"></span> Favourites  </a></li>
-                        <li><a href="#"><span class="fa fa-bookmark pull-right"></span> Reservations </a></li>
+                        <li><a href=""><span class="fa fa-star pull-right"></span> History  </a></li>
+                        <li><a href="#"><span class="fa fa-bookmark pull-right"></span> Option 2 </a></li>
                       </ul>
                     </div>           
                 </div>
+                
+                <div class="col-xs-12 col-sm-8">
+                    <h1>Profile</h1>
+                    <p><strong>Name: </strong> <a data-toggle="tooltip" data-placement="right" title="edit username" href="<?php URL ?>editusername"> <?php echo Session::get('user_name'); ?> </a> </p>
+                    <p><strong>Email: </strong> <a data-toggle="tooltip" data-placement="right" title="edit email" href="<?php URL ?>edituseremail"> <?php echo Session::get('user_email'); ?> </a> </p>
+                    <p class="text-muted">Last login: <?php echo $this->lastLoginTime; ?> </p>
+
+                </div>             
+                
             </div>            
             <div class="col-xs-12 divider text-center" style="padding-top: 40px;">
                 <div class="col-xs-12 col-sm-6 col-md-6 emphasis">

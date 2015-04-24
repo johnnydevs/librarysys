@@ -65,7 +65,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="<?php echo URL; ?>index/index">Home</a>
+            <a class="navbar-brand" href="<?php echo URL; ?>index/index"><i class="fa fa-home"></i> Home</a>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -86,7 +86,7 @@
                     
 
                     <li <?php if ($this->checkForActiveController($filename, "books")) { echo ' class="active" '; } ?> class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Books <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-book"></i> Books <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li>
                                     <a href="<?php echo URL; ?>books/index">List</a>
@@ -98,25 +98,25 @@
                     </li>
                    
                     <li <?php if ($this->checkForActiveController($filename, "note")) { echo ' class="active" '; } ?> >
-                        <a href="<?php echo URL; ?>note/index">Notes</a>
+                        <a href="<?php echo URL; ?>note/index"><i class="fa fa-pencil"></i> Notes</a>
                     </li>
                 
                 <?php endif; ?>
               
                 <?php if (Session::get('user_logged_in') == true):?>
                     <li <?php if ($this->checkForActiveController($filename, "login")) { echo ' class="active" '; } ?> class="dropdown">
-                    <a href="<?php echo URL; ?>login/showprofile" role="button" aria-expanded="false">Account</a>
+                    <a href="<?php echo URL; ?>login/showprofile" role="button" aria-expanded="false"><i class="fa fa-user"></i> Account</a>
 
                     <li <?php if ($this->checkForActiveController($filename, "notes")) { echo ' class="active" '; } ?> >
-                    <a href="<?php echo URL; ?>login/showprofile#myModal" data-toggle="modal" data-target="#myModal">Contact</a>
+                    <a href="<?php echo URL; ?>login/showprofile#myModal" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope"></i> Contact</a>
                     </li>
                     </li>
                     
                     <li <?php if ($this->checkForActiveController($filename, "note")) { echo ' class="active" '; } ?> >
-                        <a href="<?php echo URL; ?>login/logout">Logout</a>
+                        <a href="<?php echo URL; ?>login/logout"><i class="fa fa-sign-out"></i> Logout</a>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Help <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-question"></i> Help <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li>
                                     <a href="<?php echo URL; ?>help/faq">FAQ</a>

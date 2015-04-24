@@ -127,7 +127,7 @@ class AdminModel
     
 
     
-    public function addIsbn($isbn, $title, $category, $author, $description)
+    public function addIsbn($isbn, $title, $category, $author, $description, $available)
     {
         // clean the input to prevent for example javascript within the notes.
         $isbn = strip_tags($isbn);
@@ -135,15 +135,17 @@ class AdminModel
         $category = strip_tags($category);
         $author = strip_tags($author);
         $description = strip_tags($description);
+        $available = '1';
 
-        $sql = "INSERT INTO book (isbn, title, category, author, description) 
-                VALUES (:isbn, :title, :category, :author, :description)";
+        $sql = "INSERT INTO book (isbn, title, category, author, description, available) 
+                VALUES (:isbn, :title, :category, :author, :description, :available)";
         $query = $this->db->prepare($sql);
         $query->execute(array(  ':isbn' => $isbn, 
                                 ':title' => $title,
                                 ':category' => $category,
                                 ':author' => $author,
-                                ':description' => $description
+                                ':description' => $description,
+                                ':available' => $available
                                 ));
         $count =  $query->rowCount();
         if ($count == 1) {

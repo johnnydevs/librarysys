@@ -13,7 +13,7 @@
         <input type="submit" value='Create this note' class="btn btn-info" autocomplete="off" />
     </form>
 
-    <h1 style="margin-top: 50px;">List of your notes</h1>
+    <h2 style="margin-top: 50px;">List of your notes</h2>
 
     <table>
     <?php

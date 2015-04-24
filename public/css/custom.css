@@ -38,3 +38,15 @@
     text-align:center;
     color:white;
 } 
+
+.navbar-default .navbar-nav>li>a {
+  color: #0099CB !important;
+}
+
+.navbar-default .navbar-brand {
+  color: #0097CA !important;
+}
+
+.dropdown-menu>li>a {
+  color: #0097CA !important;
+}
